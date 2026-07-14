@@ -170,7 +170,7 @@ COMMON_HP = {
     'exploit_frac'     : 0.35,    # fracción final de episodios donde epsilon→0
     # ── Test ────────────────────────────────────────────────────────────────
     'test_epsilon'     : 0.01,    # epsilon durante test (casi greedy)
-    'test_max_steps'   : 6000,     # límite de pasos en TEST  (None = igual que max_steps)
+    'test_max_steps'   : 1000,     # límite de pasos en TEST  (None = igual que max_steps)
     # ── Protocolo de test: planner en el lazo (opción 2) ─────────────────────
     #   Mecanismo de acción SOLO durante el test — NO afecta al entrenamiento:
     #     None      = hereda 'action_selection' (test clásico: greedy sobre V;
@@ -200,14 +200,14 @@ COMMON_HP = {
     #            ciclos del gradiente heredado (por eso el zero-shot fallaba).
     #     Fase 2 EXPLOTACIÓN — ε bajo: afina la ruta encontrada.
     #     Reintento greedy de test. Si falla, otra ronda (hasta max_rounds).
-    'test_adapt_explore_episodes' : 3,   # Fase 1 — episodios de exploración/ronda (≥3)
+    'test_adapt_explore_episodes' : 8,   # Fase 1 — episodios de exploración/ronda (≥3)
     'test_adapt_explore_epsilon'  : 1.0, # ε de la exploración (1.0 = pura); configurable
     'test_adapt_episodes'      : 3,     # Fase 2 — episodios de explotación/ronda
     'test_adapt_epsilon'       : 0.20,  # ε (bajo) de la explotación; configurable
     'test_adapt_max_rounds'    : 3,     # rondas máx: (explora+explota)→reintento
     #   Por ronda: 3 explora + 3 explota + 1 reintento; 3 rondas → 18 ep de
     #   reajuste + 3 reintentos máx/laberinto ("few-shot", ~⅓ de los 40 de train).
-    'test_adapt_max_steps'     : 10000,  # None = usa max_steps de entrenamiento
+    'test_adapt_max_steps'     : 20000,  # None = usa max_steps de entrenamiento
     # ── Ablación: recompensa moldeada ────────────────────────────────────────
     'use_shaped_reward'        : False,  # True = recompensa decae con nº de pasos
     'shaped_reward_magnitude'  : 1.0,    # máx recompensa al llegar meta (0.0–1.0); solo si use_shaped_reward=True
