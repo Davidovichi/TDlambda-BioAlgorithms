@@ -1,0 +1,583 @@
+═══════════ INFORME TÉCNICO — EXPERIMENTO BIO-INSPIRED TD(λ) ═══════════
+
+  Prueba #        : 0
+  Fecha/hora      : 2026-05-17 17:07:56
+  Algoritmos      : PSO, ABC, DE, GA, TDL, ROLLOUT
+  Notas           : prueba data set con 5 episodios
+  Recompensa mol. : desactivada
+  Directorio      : c:\Users\miste\OneDrive\Escritorio\P Lambda\experimentos_bio\resultados\prueba_000
+
+────────────────────────────────────────────────────────────────────────
+  DATOS DE LABERINTOS
+────────────────────────────────────────────────────────────────────────
+  CSV train  : c:\Users\miste\OneDrive\Escritorio\P Lambda\experimentos_bio\laberintostrain.csv
+  CSV test   : c:\Users\miste\OneDrive\Escritorio\P Lambda\experimentos_bio\laberintostest.csv
+  Laberintos train : 24
+  Laberintos test  : 12
+  Tamaño cuadrícula: 20×20    Inicio: (0, 0)    Meta: (19, 19)
+  Óptimos BFS test : [38, 38, 38, 38, 44, 38, 38, 38, 38, 38, 38, 38]
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS COMUNES (TD(λ))
+────────────────────────────────────────────────────────────────────────
+  Tasa aprendizaje α                           = 0.08
+  Factor descuento γ                           = 0.99
+  Decaimiento trazas λ                         = 0.7
+  Episodios por laberinto                      = 5
+  Pasos máx por episodio (train)               = 2000
+  ε inicial (exploración)                      = 1.0
+  ε en inicio fase explotación                 = 0.9
+  Fracción exploit (últimos ep→ε=0)            = 0.34
+  ε durante test                               = 0.01
+  Pasos máx en test (None=train)               = 2000
+  Ablación — recompensa moldeada               = False
+  Pasos "buenos" (→ recompensa=1.0)            = 50
+  Semilla aleatoriedad                         = 42
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — PSO
+────────────────────────────────────────────────────────────────────────
+  Profundidad lookahead (pasos)                = 12
+  Tamaño del enjambre                          = 8
+  Iteraciones por llamada                      = 6
+  Inercia w                                    = 0.6
+  Coef. cognitivo c1                           = 1.5
+  Coef. social c2                              = 2.0
+  Presupuesto evals/llamada planif.            ≈ 48
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — ABC
+────────────────────────────────────────────────────────────────────────
+  Profundidad lookahead (pasos)                = 12
+  Abejas empleadas                             = 8
+  Abejas observadoras                          = 6
+  Iteraciones por llamada                      = 6
+  Límite de pruebas (scout)                    = 5
+  Presupuesto evals/llamada planif.            ≈ 48
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — DE
+────────────────────────────────────────────────────────────────────────
+  Profundidad lookahead (pasos)                = 12
+  Tamaño de población                          = 8
+  Iteraciones por llamada                      = 6
+  Factor mutación F                            = 0.8
+  Tasa de cruce CR                             = 0.9
+  Presupuesto evals/llamada planif.            ≈ 48
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — GA
+────────────────────────────────────────────────────────────────────────
+  Profundidad lookahead (pasos)                = 12
+  Tamaño de población                          = 8
+  Generaciones por llamada                     = 6
+  Tasa de mutación                             = 0.15
+  Presupuesto evals/llamada planif.            ≈ 48
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — TDL
+────────────────────────────────────────────────────────────────────────
+  (sin hiperparámetros internos — usa V(s) directamente)
+  Presupuesto evals/llamada planif.            0  (usa V(s) directo, O(1)/llamada)
+
+────────────────────────────────────────────────────────────────────────
+  HIPERPARÁMETROS ESPECÍFICOS — ROLLOUT
+────────────────────────────────────────────────────────────────────────
+  Profundidad lookahead (pasos)                = 12
+  Rollouts aleatorios por llamada              = 48
+  Presupuesto evals/llamada planif.            ≈ 48
+
+════════════════════════════════════════════════════════════════════════
+  RESULTADOS GLOBALES
+════════════════════════════════════════════════════════════════════════
+
+  Algo           Train%        Test%   PasosTrMed  PasosTesMed      G0Train       G0Test        Calls
+  ───────────────────────────────────────────────────────────────────────────────────────────────────
+  PSO              45.8        100.0       1393.8        137.2       0.0296       0.2867       343094
+  ABC              51.7        100.0       1307.0        277.4       0.0453       0.2591       321642
+  DE               48.3         91.7       1375.7        458.0       0.0385       0.1675       372488
+  GA               47.5        100.0       1440.9        243.5       0.0383       0.2590       355936
+  TDL              78.3         41.7        847.2       1362.1       0.1438       0.0672       224527
+  ROLLOUT          53.3         91.7       1318.8        266.3       0.0472       0.3196       326036
+
+────────────────────────────────────────────────────────────────────────
+  DETALLE POR LABERINTO DE TEST
+────────────────────────────────────────────────────────────────────────
+
+  [PSO]
+    Laberinto  1: ÉXITO  pasos= 170  G0=0.1811  óptimoBFS=38  ratio=4.47
+    Laberinto  2: ÉXITO  pasos= 122  G0=0.2934  óptimoBFS=38  ratio=3.21
+    Laberinto  3: ÉXITO  pasos= 144  G0=0.2352  óptimoBFS=38  ratio=3.79
+    Laberinto  4: ÉXITO  pasos=  85  G0=0.4256  óptimoBFS=38  ratio=2.24
+    Laberinto  5: ÉXITO  pasos= 305  G0=0.0466  óptimoBFS=44  ratio=6.93
+    Laberinto  6: ÉXITO  pasos= 119  G0=0.3024  óptimoBFS=38  ratio=3.13
+    Laberinto  7: ÉXITO  pasos=  81  G0=0.4430  óptimoBFS=38  ratio=2.13
+    Laberinto  8: ÉXITO  pasos= 105  G0=0.3481  óptimoBFS=38  ratio=2.76
+    Laberinto  9: ÉXITO  pasos= 142  G0=0.2400  óptimoBFS=38  ratio=3.74
+    Laberinto 10: ÉXITO  pasos= 182  G0=0.1605  óptimoBFS=38  ratio=4.79
+    Laberinto 11: ÉXITO  pasos=  88  G0=0.4129  óptimoBFS=38  ratio=2.32
+    Laberinto 12: ÉXITO  pasos= 104  G0=0.3516  óptimoBFS=38  ratio=2.74
+
+  [ABC]
+    Laberinto  1: ÉXITO  pasos=1808  G0=0.0000  óptimoBFS=38  ratio=47.58
+    Laberinto  2: ÉXITO  pasos= 256  G0=0.0763  óptimoBFS=38  ratio=6.74
+    Laberinto  3: ÉXITO  pasos= 164  G0=0.1924  óptimoBFS=38  ratio=4.32
+    Laberinto  4: ÉXITO  pasos=  73  G0=0.4801  óptimoBFS=38  ratio=1.92
+    Laberinto  5: ÉXITO  pasos= 212  G0=0.1188  óptimoBFS=44  ratio=4.82
+    Laberinto  6: ÉXITO  pasos=  74  G0=0.4753  óptimoBFS=38  ratio=1.95
+    Laberinto  7: ÉXITO  pasos= 129  G0=0.2735  óptimoBFS=38  ratio=3.39
+    Laberinto  8: ÉXITO  pasos= 144  G0=0.2352  óptimoBFS=38  ratio=3.79
+    Laberinto  9: ÉXITO  pasos= 114  G0=0.3180  óptimoBFS=38  ratio=3.00
+    Laberinto 10: ÉXITO  pasos= 114  G0=0.3180  óptimoBFS=38  ratio=3.00
+    Laberinto 11: ÉXITO  pasos=  91  G0=0.4007  óptimoBFS=38  ratio=2.39
+    Laberinto 12: ÉXITO  pasos= 150  G0=0.2215  óptimoBFS=38  ratio=3.95
+
+  [DE]
+    Laberinto  1: ÉXITO  pasos= 989  G0=0.0000  óptimoBFS=38  ratio=26.03
+    Laberinto  2: ÉXITO  pasos= 241  G0=0.0887  óptimoBFS=38  ratio=6.34
+    Laberinto  3: ÉXITO  pasos= 677  G0=0.0011  óptimoBFS=38  ratio=17.82
+    Laberinto  4: ÉXITO  pasos= 197  G0=0.1381  óptimoBFS=38  ratio=5.18
+    Laberinto  5: ÉXITO  pasos= 159  G0=0.2023  óptimoBFS=44  ratio=3.61
+    Laberinto  6: ÉXITO  pasos= 123  G0=0.2905  óptimoBFS=38  ratio=3.24
+    Laberinto  7: ÉXITO  pasos=  82  G0=0.4386  óptimoBFS=38  ratio=2.16
+    Laberinto  8: ÉXITO  pasos= 644  G0=0.0015  óptimoBFS=38  ratio=16.95
+    Laberinto  9: ÉXITO  pasos= 101  G0=0.3624  óptimoBFS=38  ratio=2.66
+    Laberinto 10: ÉXITO  pasos= 129  G0=0.2735  óptimoBFS=38  ratio=3.39
+    Laberinto 11: ÉXITO  pasos= 154  G0=0.2127  óptimoBFS=38  ratio=4.05
+    Laberinto 12: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+
+  [GA]
+    Laberinto  1: ÉXITO  pasos=1487  G0=0.0000  óptimoBFS=38  ratio=39.13
+    Laberinto  2: ÉXITO  pasos= 143  G0=0.2376  óptimoBFS=38  ratio=3.76
+    Laberinto  3: ÉXITO  pasos= 170  G0=0.1811  óptimoBFS=38  ratio=4.47
+    Laberinto  4: ÉXITO  pasos= 115  G0=0.3148  óptimoBFS=38  ratio=3.03
+    Laberinto  5: ÉXITO  pasos= 185  G0=0.1558  óptimoBFS=44  ratio=4.20
+    Laberinto  6: ÉXITO  pasos= 129  G0=0.2735  óptimoBFS=38  ratio=3.39
+    Laberinto  7: ÉXITO  pasos= 100  G0=0.3660  óptimoBFS=38  ratio=2.63
+    Laberinto  8: ÉXITO  pasos= 111  G0=0.3277  óptimoBFS=38  ratio=2.92
+    Laberinto  9: ÉXITO  pasos= 100  G0=0.3660  óptimoBFS=38  ratio=2.63
+    Laberinto 10: ÉXITO  pasos= 178  G0=0.1671  óptimoBFS=38  ratio=4.68
+    Laberinto 11: ÉXITO  pasos=  99  G0=0.3697  óptimoBFS=38  ratio=2.61
+    Laberinto 12: ÉXITO  pasos= 105  G0=0.3481  óptimoBFS=38  ratio=2.76
+
+  [TDL]
+    Laberinto  1: ÉXITO  pasos= 358  G0=0.0274  óptimoBFS=38  ratio=9.42
+    Laberinto  2: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto  3: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto  4: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto  5: FALLO  pasos=2000  G0=0.0000  óptimoBFS=44  ratio=45.45
+    Laberinto  6: ÉXITO  pasos=1289  G0=0.0000  óptimoBFS=38  ratio=33.92
+    Laberinto  7: ÉXITO  pasos=  66  G0=0.5151  óptimoBFS=38  ratio=1.74
+    Laberinto  8: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto  9: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto 10: ÉXITO  pasos= 135  G0=0.2575  óptimoBFS=38  ratio=3.55
+    Laberinto 11: ÉXITO  pasos= 497  G0=0.0068  óptimoBFS=38  ratio=13.08
+    Laberinto 12: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+
+  [ROLLOUT]
+    Laberinto  1: FALLO  pasos=2000  G0=0.0000  óptimoBFS=38  ratio=52.63
+    Laberinto  2: ÉXITO  pasos= 171  G0=0.1793  óptimoBFS=38  ratio=4.50
+    Laberinto  3: ÉXITO  pasos= 147  G0=0.2282  óptimoBFS=38  ratio=3.87
+    Laberinto  4: ÉXITO  pasos= 105  G0=0.3481  óptimoBFS=38  ratio=2.76
+    Laberinto  5: ÉXITO  pasos=  88  G0=0.4129  óptimoBFS=44  ratio=2.00
+    Laberinto  6: ÉXITO  pasos= 124  G0=0.2876  óptimoBFS=38  ratio=3.26
+    Laberinto  7: ÉXITO  pasos=  79  G0=0.4520  óptimoBFS=38  ratio=2.08
+    Laberinto  8: ÉXITO  pasos=  80  G0=0.4475  óptimoBFS=38  ratio=2.11
+    Laberinto  9: ÉXITO  pasos= 126  G0=0.2819  óptimoBFS=38  ratio=3.32
+    Laberinto 10: ÉXITO  pasos= 108  G0=0.3378  óptimoBFS=38  ratio=2.84
+    Laberinto 11: ÉXITO  pasos=  86  G0=0.4213  óptimoBFS=38  ratio=2.26
+    Laberinto 12: ÉXITO  pasos=  82  G0=0.4386  óptimoBFS=38  ratio=2.16
+
+────────────────────────────────────────────────────────────────────────
+  ESTADÍSTICAS DE ENTRENAMIENTO
+────────────────────────────────────────────────────────────────────────
+
+  [PSO]
+    Éxito total train : 55/120  (45.8%)
+    Pasos — media=1393.8  std=745.5  min=103  max=2000
+    Pasos — Q1=584  mediana=2000  Q3=2000  IQR=1416
+    G0    — media=0.0296  std=0.0767  max=0.3587
+    |δ|   — media=0.0364  std=0.0718  max=0.9900
+    V(s') — media=0.6687  std=0.1603
+    Llamadas planif. : 343094
+
+  [ABC]
+    Éxito total train : 62/120  (51.7%)
+    Pasos — media=1307.0  std=763.5  min=84  max=2000
+    Pasos — Q1=575  mediana=1772  Q3=2000  IQR=1425
+    G0    — media=0.0453  std=0.1033  max=0.4342
+    |δ|   — media=0.0352  std=0.0666  max=0.9900
+    V(s') — media=0.6603  std=0.1675
+    Llamadas planif. : 321642
+
+  [DE]
+    Éxito total train : 58/120  (48.3%)
+    Pasos — media=1375.7  std=742.1  min=69  max=2000
+    Pasos — Q1=643  mediana=2000  Q3=2000  IQR=1357
+    G0    — media=0.0385  std=0.1024  max=0.5049
+    |δ|   — media=0.0326  std=0.0705  max=0.9900
+    V(s') — media=0.6815  std=0.1609
+    Llamadas planif. : 372488
+
+  [GA]
+    Éxito total train : 57/120  (47.5%)
+    Pasos — media=1440.9  std=733.0  min=85  max=2000
+    Pasos — Q1=696  mediana=2000  Q3=2000  IQR=1304
+    G0    — media=0.0383  std=0.0951  max=0.4299
+    |δ|   — media=0.0363  std=0.0699  max=0.9900
+    V(s') — media=0.6905  std=0.1553
+    Llamadas planif. : 355936
+
+  [TDL]
+    Éxito total train : 94/120  (78.3%)
+    Pasos — media=847.2  std=750.1  min=38  max=2000
+    Pasos — Q1=153  mediana=552  Q3=1741  IQR=1588
+    G0    — media=0.1438  std=0.2281  max=0.6894
+    |δ|   — media=0.0040  std=0.0216  max=1.0000
+    V(s') — media=0.0232  std=0.0924
+    Llamadas planif. : 224527
+
+  [ROLLOUT]
+    Éxito total train : 64/120  (53.3%)
+    Pasos — media=1318.8  std=756.5  min=68  max=2000
+    Pasos — Q1=600  mediana=1739  Q3=2000  IQR=1400
+    G0    — media=0.0472  std=0.1094  max=0.5100
+    |δ|   — media=0.0316  std=0.0616  max=0.9900
+    V(s') — media=0.6403  std=0.1628
+    Llamadas planif. : 326036
+
+════════════════════════════════════════════════════════════════════════
+  ANÁLISIS FORMAL — ECUACIÓN DE BELLMAN Y OPERADOR TD(λ) BIO-INSPIRADO
+════════════════════════════════════════════════════════════════════════
+
+  1. ECUACIÓN DE BELLMAN (punto fijo de la función de valor óptima)
+  ─────────────────────────────────────────────────────────────────
+  V*(s) = max_a [ R(s,a) + γ · Σ_{s'} P(s'|s,a) · V*(s') ]
+
+  En un MDP determinista (como este laberinto) esto se simplifica a:
+  V*(s) = max_a [ r(s,a) + γ · V*(s') ]
+
+  2. OPERADOR DE BELLMAN CLÁSICO EN TD(λ)
+  ─────────────────────────────────────────────────────────────────
+  El error TD (δ) es el residuo del operador de Bellman aplicado a V actual:
+
+    δ_t = r_t + γ · V(s_{t+1}) − V(s_t)          ← bootstrap con tabla V
+
+  Actualización con trazas de elegibilidad λ:
+    e(s) ← γ·λ·e(s) + 1[s = s_t]                ← acumulativa
+    V(s) ← V(s) + α · δ_t · e(s)   ∀s activo
+
+  Contracción garantizada: ||T V − T V'||_∞ ≤ γ · ||V − V'||_∞
+  → punto fijo único V* bajo política fija.
+
+  3. OPERADOR DE BELLMAN MODIFICADO CON PLANIFICADOR BIO-INSPIRADO
+  ─────────────────────────────────────────────────────────────────
+  El planificador reemplaza V(s') por una estimación de lookahead G_plan:
+
+    G_plan(s') = max_{seq ∈ Π_N} Σ_{k=0}^{H} γ^k · r_k + γ^H · V(s_H)
+
+  donde Π_N = N secuencias de acción de profundidad H evaluadas/optimizadas.
+
+  El error TD modificado:
+    δ_t^bio = r_t + γ · G_plan(s_{t+1}) − V(s_t)
+
+  Si G_plan(s') ≥ V(s') (el planificador encuentra rutas mejores que el
+  greedy sobre la tabla actual), entonces δ_t^bio > δ_t, lo que acelera
+  la propagación de información hacia atrás a través de las trazas.
+
+  4. JERARQUÍA DE BOOTSTRAP (calidad creciente del target)
+  ─────────────────────────────────────────────────────────────────
+  TDL     G_td(s')   = V(s')                          O(1)   — 1 eval
+  ROLLOUT G_roll(s') = max(random N rollouts)          O(N·H) — búsqueda aleatoria
+  Bio     G_bio(s')  = max(optimized N sequences)      O(N·H) — búsqueda dirigida
+
+  Mayor calidad de bootstrap → menor ||δ||₂ promedio → convergencia más rápida.
+  El punto fijo V* no cambia, pero la velocidad de convergencia sí.
+
+  5. RELACIÓN CON LOS RESULTADOS EMPÍRICOS
+  ─────────────────────────────────────────────────────────────────
+  La Fig. 13 muestra ||ΔV||₂ por episodio (proxy del error de Bellman empírico).
+  La Fig. 11 muestra la calidad de G_plan como función de evaluaciones usadas.
+  La Fig. 17 muestra la distribución de |δ| y su correlación con el rendimiento.
+  La Fig. 12 (perfiles Dolan-Moré) mide el ratio pasos/BFS como
+      proxy de la distancia al óptimo del operador de Bellman.
+  
+════════════════════════════════════════════════════════════════════════
+  TESTS ESTADÍSTICOS NO PARAMÉTRICOS
+════════════════════════════════════════════════════════════════════════
+
+  Metodología:
+    Wilcoxon signed-rank (Wilcoxon 1945): test NO PARAMÉTRICO PAREADO.
+      Compara pasos en TEST de dos algoritmos sobre los mismos laberintos.
+      Detecta si la mediana de las diferencias (A−B) es ≠ 0.
+      Potencia limitada con pocos laberintos; interpretar con cautela.
+
+    Mann-Whitney U (Mann & Whitney 1947): test NO PARAMÉTRICO INDEPENDIENTE.
+      Compara distribuciones de pasos en TRAIN entre dos algoritmos.
+      Detecta si un algoritmo tiende a necesitar sistemáticamente más/menos
+      pasos durante el aprendizaje. Mayor potencia por mayor N.
+
+    Corrección de Bonferroni sobre C(6,6)/2 = 15 comparaciones simultáneas.
+    α individual corregido = 0.0033
+
+  Codificación: ns=no significativo  * p<0.05  ** p<0.01  *** p<0.001
+  Tamaño de efecto r (Mann-Whitney): |r|<0.10 negligible | 0.10–0.29 pequeño
+                                     0.30–0.49 mediano   | ≥0.50 grande
+  Signo de r: positivo → fila tiene MÁS pasos que columna (fila peor)
+              negativo → fila tiene MENOS pasos que columna (fila mejor)
+
+────────────────────────────────────────────────────────────────────────
+  A) WILCOXON SIGNED-RANK — Pasos en TEST (pareado por laberinto, Bonferroni)
+     N pares = 12 laberintos  |  H₀: mediana(pasos_A − pasos_B) = 0
+────────────────────────────────────────────────────────────────────────
+  Algo A \ B             PSO           ABC            DE            GA           TDL       ROLLOUT
+  ────────────────────────────────────────────────────────────────────────────────────────────────
+  PSO                      —   p=8.5400 ns   p=0.9595 ns   p=3.5010 ns    p=0.0366 *  p=10.7812 ns
+  ABC            p=8.5400 ns             —   p=4.1235 ns   p=7.0459 ns   p=0.1392 ns   p=5.2368 ns
+  DE             p=0.9595 ns   p=4.1235 ns             —   p=3.5010 ns   p=0.2051 ns   p=1.1572 ns
+  GA             p=3.5010 ns   p=7.0459 ns   p=3.5010 ns             —   p=0.1392 ns   p=5.5298 ns
+  TDL             p=0.0366 *   p=0.1392 ns   p=0.2051 ns   p=0.1392 ns             —   p=0.1025 ns
+  ROLLOUT       p=10.7812 ns   p=5.2368 ns   p=1.1572 ns   p=5.5298 ns   p=0.1025 ns             —
+
+  CONCLUSIONES — Wilcoxon signed-rank (test):
+  ────────────────────────────────────────────────────────────
+  PSO vs ABC: No significativo (p=8.5400 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  PSO vs DE: No significativo (p=0.9595 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  PSO vs GA: No significativo (p=3.5010 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  PSO vs TDL: No significativo (p=0.0366 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  PSO vs ROLLOUT: No significativo (p=10.7812 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  ABC vs DE: No significativo (p=4.1235 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  ABC vs GA: No significativo (p=7.0459 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  ABC vs TDL: No significativo (p=0.1392 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  ABC vs ROLLOUT: No significativo (p=5.2368 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  DE vs GA: No significativo (p=3.5010 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  DE vs TDL: No significativo (p=0.2051 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  DE vs ROLLOUT: No significativo (p=1.1572 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  GA vs TDL: No significativo (p=0.1392 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  GA vs ROLLOUT: No significativo (p=5.5298 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+  TDL vs ROLLOUT: No significativo (p=0.1025 ns). No se puede rechazar H₀ — el rendimiento en test es estadísticamente similar.
+
+  NOTA: Con solo 12 laberinto/s de test, la potencia estadística de Wilcoxon
+  es baja. Resultados deben interpretarse junto a los efectos Mann-Whitney (train).
+
+────────────────────────────────────────────────────────────────────────
+  B) MANN-WHITNEY U — Pasos en TRAIN (muestras independientes, Bonferroni)
+     N_A = N_B = 120 episodios por algoritmo  |  H₀: distribuciones iguales
+     Columna muestra: p-valor | efecto r | significancia
+────────────────────────────────────────────────────────────────────────
+  Algo A \ B             PSO           ABC            DE            GA           TDL       ROLLOUT
+  ────────────────────────────────────────────────────────────────────────────────────────────────
+  PSO                      —r=-0.070(neg)nsr=-0.021(neg)nsr=+0.002(neg)nsr=-0.404(med)***r=-0.073(neg)ns
+  ABC         r=+0.070(neg)ns             —r=+0.046(neg)nsr=+0.072(neg)nsr=-0.350(med)***r=-0.002(neg)ns
+  DE          r=+0.021(neg)nsr=-0.046(neg)ns             —r=+0.027(neg)nsr=-0.396(med)***r=-0.047(neg)ns
+  GA          r=-0.002(neg)nsr=-0.072(neg)nsr=-0.027(neg)ns             —r=-0.419(med)***r=-0.078(neg)ns
+  TDL         r=+0.404(med)***r=+0.350(med)***r=+0.396(med)***r=+0.419(med)***             —r=+0.353(med)***
+  ROLLOUT     r=+0.073(neg)nsr=+0.002(neg)nsr=+0.047(neg)nsr=+0.078(neg)nsr=-0.353(med)***             —
+
+  CONCLUSIONES — Mann-Whitney U (train):
+  ────────────────────────────────────────────────────────────
+  PSO vs ABC: No significativo (p=1.0000 ns, r=-0.070). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  PSO vs DE: No significativo (p=1.0000 ns, r=-0.021). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  PSO vs GA: No significativo (p=1.0000 ns, r=+0.002). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  PSO vs TDL: PSO usa MENOS pasos en train (***, p=0.0000, efecto mediano r=-0.404). PSO aprende de forma más eficiente por episodio.
+  PSO vs ROLLOUT: No significativo (p=1.0000 ns, r=-0.073). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  ABC vs DE: No significativo (p=1.0000 ns, r=+0.046). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  ABC vs GA: No significativo (p=1.0000 ns, r=+0.072). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  ABC vs TDL: ABC usa MENOS pasos en train (***, p=0.0000, efecto mediano r=-0.350). ABC aprende de forma más eficiente por episodio.
+  ABC vs ROLLOUT: No significativo (p=1.0000 ns, r=-0.002). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  DE vs GA: No significativo (p=1.0000 ns, r=+0.027). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  DE vs TDL: DE usa MENOS pasos en train (***, p=0.0000, efecto mediano r=-0.396). DE aprende de forma más eficiente por episodio.
+  DE vs ROLLOUT: No significativo (p=1.0000 ns, r=-0.047). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  GA vs TDL: GA usa MENOS pasos en train (***, p=0.0000, efecto mediano r=-0.419). GA aprende de forma más eficiente por episodio.
+  GA vs ROLLOUT: No significativo (p=1.0000 ns, r=-0.078). No hay evidencia de diferencia en eficiencia de aprendizaje.
+  TDL vs ROLLOUT: ROLLOUT usa MENOS pasos en train (***, p=0.0000, efecto mediano r=+0.353). ROLLOUT aprende de forma más eficiente por episodio.
+
+────────────────────────────────────────────────────────────────────────
+  RANKING GLOBAL (test éxito DESC, planner_calls ASC como desempate)
+────────────────────────────────────────────────────────────────────────
+  #1  ABC       test=100.0%  train=51.7%  calls=321,642
+  #2  PSO       test=100.0%  train=45.8%  calls=343,094
+  #3  GA        test=100.0%  train=47.5%  calls=355,936
+  #4  ROLLOUT   test=91.7%  train=53.3%  calls=326,036
+  #5  DE        test=91.7%  train=48.3%  calls=372,488
+  #6  TDL       test=41.7%  train=78.3%  calls=224,527
+
+════════════════════════════════════════════════════════════════════════
+  MATRICES DE VALOR FINAL V(s) — estado al finalizar el entrenamiento
+════════════════════════════════════════════════════════════════════════
+  Grid 20×20  |  Valor ∈ [0,1]  |  formato: fila=row, col=col
+  START=(0, 0)  GOAL=(19, 19)
+  Celda marcada con [G] = GOAL  [S] = START
+
+────────────────────────────────────────────────────────────────────────
+  [PSO]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.43]0.42640.43120.43410.44960.47610.48250.48840.48370.50500.53200.54620.52500.52540.54830.58770.60190.59770.60330.7275
+  r01 |0.44510.42900.44510.45070.47350.46390.48350.53090.48810.47250.53910.49110.55300.52940.57620.59770.59900.63000.62910.7289
+  r02 |0.46930.46580.46510.44590.47690.46970.48520.50740.51450.51690.53280.55270.54790.52460.54110.61870.61360.66390.64570.7166
+  r03 |0.45500.49870.47300.49510.79070.50350.58030.52100.53090.55800.55350.58000.58550.59210.59020.64800.76370.67050.66380.7601
+  r04 |0.49040.50130.49060.50780.53320.50980.52460.53060.55400.56380.55720.58200.59180.60910.64480.64450.62550.66420.67520.7650
+  r05 |0.49280.78540.78840.53430.00000.56990.57350.56000.56590.61810.60470.56730.63060.65310.80170.65270.65640.71440.70060.8049
+  r06 |0.53200.54730.55110.53750.55090.57440.55370.55740.59260.58170.58710.61390.65120.64040.66650.72690.69660.69930.72160.7692
+  r07 |0.58810.80460.79350.67200.76610.59940.75220.58380.82000.62140.62000.65060.70520.63410.67980.64250.68430.85770.73790.8316
+  r08 |0.58150.60210.61330.62370.57560.59890.58950.61310.63200.63280.64390.67430.69760.62270.70600.69820.75700.76270.75410.8446
+  r09 |0.64560.78710.80150.66260.81940.70870.82960.63770.84220.66170.66730.67590.69190.74140.73340.67070.73840.74440.78480.8649
+  r10 |0.64920.65370.64810.66520.65750.65640.78410.63870.67370.67340.67880.69020.70120.71990.74310.68170.74220.77150.79500.8491
+  r11 |0.69840.80380.00000.72360.81880.68020.84400.71100.71150.67250.68710.74250.75940.77930.75310.32470.81490.73370.82430.8505
+  r12 |0.70050.72200.73870.73310.76500.66470.73290.75170.91720.70500.71780.74750.77880.77530.75580.81420.82220.76980.84560.6872
+  r13 |0.73040.84740.00000.72510.84640.77900.79340.78720.92440.72950.87450.74980.76640.81420.97520.80010.81520.82560.86460.4736
+  r14 |0.72600.74410.72360.71590.69150.72900.85130.75720.74360.75860.86720.75190.78360.81140.79750.82010.84300.85290.85191.0000
+  r15 |0.75650.69090.00000.75020.70530.74370.82370.86390.91830.74490.00000.00000.79600.82940.79951.00000.85680.00000.90790.5362
+  r16 |0.70660.71980.72550.69550.83900.73660.75260.76590.88190.79560.79160.81390.79540.83870.86490.88020.88800.91570.94850.0000
+  r17 |0.65950.79270.00000.81610.88510.75600.76510.77320.77340.90350.99920.73130.70230.48970.73280.89750.98630.87460.96310.0000
+  r18 |0.64710.63640.60180.68680.76780.72490.79670.76640.80690.81720.84960.85560.85130.85630.87060.91860.93890.95300.98170.9913
+  r19 |0.21970.84840.95290.93200.97870.74130.80060.92940.85010.42000.65800.46600.39980.46890.99031.00000.87481.00000.9341  [G] 
+
+  Estadísticos V: min=0.0000  max=1.0000  media=0.6729  std=0.1786
+  Celdas con V>0.001: 389/400 (97.2% cobertura)
+────────────────────────────────────────────────────────────────────────
+  [ABC]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.40]0.40600.42470.41290.42120.44900.44490.46160.47980.47600.52770.51880.52940.53080.54620.56950.57210.58530.60600.8418
+  r01 |0.40600.42190.40160.41740.40820.45990.46140.51250.48990.45380.51460.47700.53220.59590.54390.55700.59980.53380.61970.8218
+  r02 |0.42490.40660.41000.43360.45320.45050.45910.47680.49880.50850.50160.53960.54760.55810.59340.59740.61550.62520.65250.8066
+  r03 |0.43560.56560.46260.42410.77920.47260.61260.47880.49430.55840.53310.65810.55620.56640.65230.67620.69350.72300.66680.7710
+  r04 |0.45050.45210.47050.48320.49850.50280.50110.48990.54200.54330.54660.56100.57410.60340.61070.61510.63190.65370.69800.8006
+  r05 |0.45100.76290.76650.50020.00000.58320.56430.48200.62210.66030.59420.59350.63260.67290.80400.63130.65450.74530.70390.8455
+  r06 |0.49560.50890.49350.49490.49630.51770.54160.52240.51620.54300.54420.57870.58480.63260.61510.64260.67640.70100.71140.8915
+  r07 |0.51270.79690.78760.63450.83600.55330.83220.57440.77300.62820.63480.65720.81730.67010.62300.67130.70000.83210.73100.9389
+  r08 |0.54080.54800.54320.53760.50420.54470.55110.59760.57290.61730.64390.66250.65270.68590.65660.67690.66630.67340.75850.7047
+  r09 |0.55960.84750.87300.58030.84050.68830.81160.60730.62020.66340.65350.66810.67940.82760.74940.72290.70000.67400.78110.8121
+  r10 |0.61930.59880.59710.57730.58060.58340.58160.60630.62810.64340.65980.66730.70140.70690.71850.74630.73800.74960.79050.8154
+  r11 |0.60350.87000.00000.73650.82940.62930.58310.88700.85560.66120.65390.71500.72500.68310.74960.00000.87130.81700.78860.7704
+  r12 |0.61710.64190.66180.67140.72950.64370.60680.61680.63890.66300.69390.69640.72260.70510.77750.77440.79740.77190.81860.9801
+  r13 |0.66780.64320.00000.70820.83560.74980.72600.69900.94680.69700.68370.73180.72610.93570.95930.77410.82460.81100.85800.8841
+  r14 |0.66350.67640.72260.68760.75650.79640.89150.70470.70000.69060.70050.73550.73000.74160.72640.74300.85780.86700.87440.7287
+  r15 |0.76950.62670.00000.69930.73340.71720.89940.69040.73750.73740.00000.00000.76570.81000.80130.47320.61940.00000.92310.8437
+  r16 |0.64360.65260.70180.71670.91580.68310.76050.78350.84830.70700.73960.75480.78150.82230.83220.85720.87540.91330.93880.9819
+  r17 |0.65130.00000.00000.88040.99920.71990.65120.78240.65640.80330.59430.79280.75690.81110.46810.88510.94690.90530.97030.6089
+  r18 |0.74440.81060.76590.69160.79820.82480.78230.82400.82680.81280.79940.78500.81700.85910.89540.91850.93710.95350.98050.9912
+  r19 |0.00000.00000.13100.14340.28620.76540.83900.83790.80690.80500.40270.55990.57490.73680.86270.99960.78100.99851.0000  [G] 
+
+  Estadísticos V: min=0.0000  max=1.0000  media=0.6492  std=0.1878
+  Celdas con V>0.001: 387/400 (96.8% cobertura)
+────────────────────────────────────────────────────────────────────────
+  [DE]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.43]0.41850.42460.42730.46240.46770.47450.49630.50640.50020.51930.54650.54880.53840.54340.60820.59980.61600.62140.6781
+  r01 |0.44730.48190.44440.44460.46900.47540.48560.49720.50540.54660.53900.54450.56330.63590.55620.70500.60120.70500.61910.7210
+  r02 |0.45690.42650.45390.45280.45660.47710.50400.50730.51700.53810.54800.55890.57480.58520.58930.60610.61800.64870.65290.7655
+  r03 |0.46260.54660.51080.47060.85870.48910.57960.51890.59590.64570.55230.60260.62100.61960.64720.63080.65420.70910.68020.7335
+  r04 |0.47180.50790.51090.52140.53440.49590.50640.51740.57100.59080.59040.61010.60250.62980.62230.63540.66570.67930.70530.7298
+  r05 |0.53230.83130.84030.53130.00000.65590.56070.55490.59790.64600.60360.68810.61220.65020.73610.68880.69420.74530.70290.7440
+  r06 |0.51790.50910.51880.53990.56380.55070.55650.56190.56990.60320.59940.61980.61800.63390.66050.65860.69700.71340.71510.7702
+  r07 |0.52660.81700.86030.67470.80690.59650.81080.65160.85200.61760.72980.63280.72300.68110.69430.72430.70110.79700.74590.7677
+  r08 |0.54290.57030.59230.58260.66030.61550.59790.60640.63220.64080.64940.66880.68160.70500.70010.71480.74960.73100.76430.8235
+  r09 |0.66700.81500.84630.64230.86160.67710.86960.60450.85820.69630.71590.69610.69520.83770.71310.77340.74630.77300.79890.7994
+  r10 |0.66110.63150.64530.61400.61870.61170.70000.63870.65770.67150.82420.68610.69720.72140.73760.68920.74500.76530.78720.8230
+  r11 |0.66420.86120.00000.72050.87160.66420.97170.75320.77910.69080.81640.79240.82190.70630.74670.23760.76910.88310.82810.8280
+  r12 |0.66640.68390.68890.68640.75330.66890.67150.69520.79280.72360.71190.74480.85870.74870.77240.80130.82840.80780.85980.8723
+  r13 |0.70790.84770.00000.64500.85630.74900.75360.71380.81180.84800.89100.74180.85870.78730.95090.78440.82670.81310.87350.7560
+  r14 |0.68340.67920.72610.74280.74170.73350.73100.73100.75220.75740.81180.79270.79830.82150.85800.79070.84270.87140.89710.9477
+  r15 |0.72570.47110.00000.80500.80020.71590.83050.00000.00000.76540.00000.00000.43770.83880.85290.84620.97550.00000.91430.7600
+  r16 |0.71200.73460.74580.74750.78330.80300.77650.78520.84650.80170.85860.83640.99330.84300.85100.88330.90500.93680.93390.6190
+  r17 |0.80330.86630.00000.75060.69840.85910.96050.80830.67630.84860.95660.84950.50860.84360.85880.88500.95960.93470.96180.7119
+  r18 |0.71070.71890.72580.73930.76060.76560.77400.79010.81840.80000.83400.83550.86350.86380.88310.91110.95350.96770.98160.9926
+  r19 |0.84280.87780.90030.89100.98390.61490.81700.97950.91400.42060.58310.82580.48410.72840.98360.96780.95860.98980.9924  [G] 
+
+  Estadísticos V: min=0.0000  max=0.9933  media=0.6833  std=0.1794
+  Celdas con V>0.001: 389/400 (97.2% cobertura)
+────────────────────────────────────────────────────────────────────────
+  [GA]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.48]0.46130.46610.45690.51120.51010.53250.52960.55660.55700.59050.55070.62940.62960.64330.65860.67570.66530.67730.8445
+  r01 |0.48070.50690.48600.47680.50720.52120.56150.53790.55890.53780.58790.54860.61260.61400.65860.67660.68000.73290.73140.8357
+  r02 |0.48760.48310.49390.49010.51700.51210.55320.57020.55970.58280.60480.63660.61100.61820.63010.68700.67610.71180.73460.8419
+  r03 |0.50280.55440.54290.50210.72720.53350.60390.57150.60590.62930.60650.67970.63390.64190.64760.69740.82240.75400.72880.8369
+  r04 |0.52130.51750.54140.55200.56670.52900.54590.57880.61450.61820.63670.63550.66530.67860.67610.69810.71190.73370.76280.8183
+  r05 |0.52240.75080.75090.56020.00000.55430.67300.58650.67080.64560.66930.69430.64600.70440.83370.68800.72310.78430.76420.8880
+  r06 |0.53180.54100.54460.56490.58100.60040.64360.60200.62050.62650.64580.64070.65910.67730.69270.72790.75160.75920.79190.7730
+  r07 |0.51840.65760.77510.62540.64720.61440.69450.60140.70410.60780.65510.71860.75270.72380.71690.72480.74170.90790.79230.3566
+  r08 |0.53790.56030.56430.60420.61660.61740.63470.63710.65220.67680.67980.68430.71590.72710.73720.73560.75170.75940.79680.6741
+  r09 |0.67380.63150.72060.60750.71110.65640.72360.62740.64050.66560.66640.67480.74120.72020.73190.71250.77540.82430.83420.9610
+  r10 |0.59600.59070.60330.61130.61000.62560.63260.65070.67150.68310.68110.67820.73560.77190.75920.81950.79420.81280.82580.7516
+  r11 |0.60200.79010.00000.72460.81170.65370.78940.71960.72120.71230.70280.72790.74140.72210.78300.83750.84470.78530.85380.8807
+  r12 |0.61010.58940.60580.61150.60690.62870.67690.68470.68230.70360.73080.71610.75300.73440.81570.80980.83490.75720.87450.8025
+  r13 |0.62500.79940.00000.70160.78490.66750.67610.69540.63960.81260.73950.75280.75290.75980.97590.76890.85630.78670.88210.4968
+  r14 |0.63390.65050.63640.66080.67980.70440.70260.75560.77480.73270.53740.77840.78090.77060.74540.78250.85770.88490.91200.8751
+  r15 |0.62660.82370.00000.64610.64760.71940.72790.72600.74870.79840.00000.00000.81600.82610.84200.89490.97980.00000.93930.7830
+  r16 |0.65250.65810.67900.69580.69340.73360.74370.74730.77520.77870.79540.81480.83070.84120.85160.88310.91280.92170.93490.3306
+  r17 |0.57650.79020.00000.76510.76440.68160.69870.74710.65050.82860.88010.83230.83210.59170.75320.90530.98090.92900.96790.5998
+  r18 |0.71960.73740.72160.71630.74120.75950.78410.77040.79160.83090.84190.84360.87520.88580.90850.92790.94820.94770.97910.9944
+  r19 |0.54520.74530.82690.80360.90180.75000.78350.79830.74500.49840.88790.85850.68660.56481.00001.00000.98450.98630.9916  [G] 
+
+  Estadísticos V: min=0.0000  max=1.0000  media=0.6861  std=0.1587
+  Celdas con V>0.001: 391/400 (97.8% cobertura)
+────────────────────────────────────────────────────────────────────────
+  [TDL]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.00]0.00020.00020.00010.00020.00020.00020.00030.00040.00040.00070.00080.00100.00130.00170.00150.00660.00770.01030.0004
+  r01 |0.00030.00010.00020.00010.00020.00020.00020.00020.00040.00060.00070.00070.00070.00190.00220.00160.00530.00300.01190.0000
+  r02 |0.00040.00030.00020.00010.00020.00020.00020.00060.00050.00060.00080.00070.00360.00280.00250.00350.00410.00920.02200.0013
+  r03 |0.00040.00010.00040.00010.00010.00050.00040.00110.00130.00100.00270.00150.00500.00510.00560.00460.00570.00880.03510.0028
+  r04 |0.00050.00060.00070.00080.00110.00130.00180.00200.00300.00430.00420.00660.00780.01760.01880.02610.03390.02890.05610.0045
+  r05 |0.00040.00000.00000.00120.00000.00040.00020.00260.00000.00080.00020.00110.00870.00220.00090.01290.04600.02780.08420.0041
+  r06 |0.00060.00070.00070.00100.00120.00160.00270.00350.00420.00610.00810.01290.01850.02750.03270.05060.07070.08440.11500.0060
+  r07 |0.00030.00000.00000.00000.00010.00180.00020.00150.00050.00560.00400.00630.00300.00210.02280.00760.08160.01630.15500.0141
+  r08 |0.00020.00010.00010.00010.00020.00260.00410.00540.00790.01130.01450.01800.02450.01980.04800.04610.10100.10210.18920.0254
+  r09 |0.00000.00000.00000.00000.00000.00000.00000.00060.00000.00380.00460.01910.03310.01260.04280.02300.14520.06200.24340.0254
+  r10 |0.00000.00000.00000.00000.00000.00000.00000.00090.00130.00190.00250.02320.04500.05600.09260.10810.20010.27820.30220.0393
+  r11 |0.00000.00000.00000.00000.00000.00000.00000.00000.00000.00270.00010.01700.02560.06710.12390.02790.10800.04740.38600.0459
+  r12 |0.00000.00000.00000.00000.00000.00000.00000.00020.00000.00460.00700.00860.00190.09210.18710.20540.26290.10820.41310.0651
+  r13 |0.00000.00000.00000.00000.00000.00000.00000.00030.00000.00000.00000.01670.00720.00000.00000.14560.31590.21670.43980.0947
+  r14 |0.00000.00000.00000.00000.00000.00000.00000.00050.00110.00140.00000.02270.03060.04970.02130.19360.38330.43620.53340.1045
+  r15 |0.00000.00000.00000.00000.00000.00000.00010.00000.00000.00290.00000.00000.02280.07300.00970.00030.08090.00000.61920.1162
+  r16 |0.00000.00000.00000.00000.00000.00010.00010.00120.00280.00400.00520.00860.03190.10190.19680.24080.36200.53880.68510.1835
+  r17 |0.00000.00000.00000.00000.00000.00000.00000.00000.00000.00000.00000.01260.00000.00060.00070.24120.00850.54740.75710.1465
+  r18 |0.00000.00000.00000.00000.00000.00000.00000.00000.00050.00160.00400.02560.05190.14750.26000.42210.49780.61420.80730.8924
+  r19 |0.00000.00000.00000.00000.00000.00000.00000.00000.00000.00000.00000.00000.00010.00080.02820.06350.06450.21480.6192  [G] 
+
+  Estadísticos V: min=0.0000  max=0.8924  media=0.0468  std=0.1259
+  Celdas con V>0.001: 208/400 (52.0% cobertura)
+────────────────────────────────────────────────────────────────────────
+  [ROLLOUT]  V(s) aprendida
+────────────────────────────────────────────────────────────────────────
+            0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19
+       ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  r00 |[0.43]0.43960.45230.46230.42120.47490.48430.46830.51520.48670.49520.48270.53420.53390.54010.57930.59750.60300.61400.7783
+  r01 |0.43850.43310.40890.49000.42840.51050.45320.49890.50550.49160.50580.52760.53950.55160.57390.57050.60940.61780.62300.7820
+  r02 |0.43470.43350.41430.48290.48370.50090.45950.48040.47710.51520.52100.53640.53860.57060.60270.60920.61090.63490.62830.7952
+  r03 |0.43800.52580.45290.44220.77660.50110.55130.55750.52260.57540.56390.61020.60720.59190.64590.66620.77390.67920.65920.7473
+  r04 |0.45500.48030.48000.48440.49530.50610.52150.52090.54630.54510.55950.58000.60040.60380.61400.62920.64970.68290.69150.7891
+  r05 |0.45660.73650.72120.49940.00000.60450.58380.58230.59710.61830.60710.61490.60570.64850.79120.67810.66290.73280.66140.8268
+  r06 |0.51050.50820.50770.50260.50560.53170.52740.56610.58480.58260.60400.61170.61970.65820.68270.68350.66730.72430.71760.7381
+  r07 |0.51440.74140.75150.61690.83530.54450.79070.65850.78360.66950.63350.59940.68880.65500.68070.67360.71200.83890.74870.7921
+  r08 |0.54110.53170.55080.56290.67050.56010.57230.58800.62090.63120.62540.64850.65580.68630.69720.69790.73620.74570.74570.8353
+  r09 |0.66530.75220.77050.58400.77650.61390.75650.58910.64130.68910.71420.69760.70640.81880.73900.72440.74220.75400.77760.7766
+  r10 |0.62100.62710.61210.59130.60790.62090.60140.59470.62760.65140.70240.71880.71620.72890.73250.72700.75920.75920.80090.7927
+  r11 |0.63200.74430.00000.67070.76010.65720.75860.66690.67500.65520.67890.75100.75170.72760.75480.75450.79090.81870.82770.7962
+  r12 |0.60480.62500.64430.66800.68960.66860.66030.64870.67420.68160.68820.70130.79790.73410.77950.74940.79410.84350.84960.8331
+  r13 |0.71150.77910.00000.64770.57640.74290.77200.73100.62510.71300.74140.74470.72350.66020.89370.80210.81610.85210.86470.7950
+  r14 |0.59640.59400.63480.63980.64830.67440.75060.76150.61480.64480.59410.75460.76390.79490.82960.80360.83960.85490.87290.9869
+  r15 |0.59220.76840.00000.73030.73770.65130.75650.70640.88710.75700.00000.00000.78740.82750.82860.78750.99160.00000.87930.8664
+  r16 |0.59820.61460.62580.63600.78100.69690.69310.73630.82770.76980.81420.79940.85260.84170.87180.87470.88470.91180.93120.6477
+  r17 |0.77170.76950.00000.67580.46300.78340.82860.72840.75510.82920.72810.72560.88380.56300.55090.90920.90430.71640.96770.8413
+  r18 |0.67300.66490.67430.65170.67680.73910.75330.74530.76280.78960.80540.81140.83450.89680.89690.90510.93930.96020.97910.9932
+  r19 |0.86930.83190.92010.79950.85730.84510.86740.85560.81980.66540.71610.53160.30610.64620.99050.98930.90611.00000.9429  [G] 
+
+  Estadísticos V: min=0.0000  max=1.0000  media=0.6623  std=0.1644
+  Celdas con V>0.001: 391/400 (97.8% cobertura)
+
+════════════════════════════════════════════════════════════════════════
+  Fin del informe — Prueba #0
+════════════════════════════════════════════════════════════════════════
