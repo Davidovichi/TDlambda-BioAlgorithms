@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Experiment artifacts (raw caches; keep the curated resultados/ figures + report)
+*.pkl
+monitor_VdE/
+monitor_snapshot*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
